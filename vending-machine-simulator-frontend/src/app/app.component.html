@@ -1,0 +1,56 @@
+<router-outlet></router-outlet>
+
+<div class="container">
+  <h1>Vending machine simulation</h1>
+  <div class="col-md-8 machine">
+    <div class="col-md-4 cell" *ngFor="let product of products">
+      <div class="col-md-6 image">
+        <img src="{{product.imageURL}}" />
+      </div>
+      <div class="col-md-6 productInfo">
+        <h3>{{ product.name }}</h3>
+        <h4>{{ product.id }}</h4>
+        <h4>${{ product.price }}</h4>
+        <!-- <h5>{{ product.stock }}</h5> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h4>Paid: ${{totalAmountPaid}}</h4>
+    <div *ngFor="let coin of coins">
+      {{coin.amount}}
+      <img src="{{coin.imageURL}}" alt="{{coin.alt}}" (click)="acceptCoin(coin.amount)" style="height: 60px;"/>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div>Pay with Visa Card</div>
+      <img src="{{visaURL}}" alt="visa" (click)="payByVisa()" style="height: 100px;"/>
+    </div>
+    <h3 *ngIf="change != null && change != undefined">
+      <div>{{ change == 0 ? 'No Change' : 'Change'}}</div>
+      <div *ngIf="change != null && change != undefined && change > 0">${{change}}</div>
+    </h3>
+  </div>
+</div>
+
+
+<div style="border: 1px solid; border-color: black; width: 700px; height: 70px; margin-left: calc(50% - 350px); margin-top: 100px;">
+  {{message}}
+</div>
+<div style="border: 1px solid; border-color: black; width: 500px; height: 50px; margin-left: calc(50% - 250px); margin-top: 10px;">
+  {{input}}
+</div>
+<div class="keypad-container">
+  <button class="keypad-button" (click)="appendToInput('1')">1</button>
+  <button class="keypad-button" (click)="appendToInput('2')">2</button>
+  <button class="keypad-button" (click)="appendToInput('3')">3</button>
+  <button class="keypad-button" (click)="appendToInput('4')">4</button>
+  <button class="keypad-button" (click)="appendToInput('5')">5</button>
+  <button class="keypad-button" (click)="appendToInput('6')">6</button>
+  <button class="keypad-button" (click)="appendToInput('7')">7</button>
+  <button class="keypad-button" (click)="appendToInput('8')">8</button>
+  <button class="keypad-button" (click)="appendToInput('9')">9</button>
+  <button class="keypad-button" (click)="appendToInput('0')">0</button>
+  <button class="keypad-button" (click)="backspace()">Backspace</button>
+  <button class="ok-button" (click)="submitInput()">OK</button>
+</div>
