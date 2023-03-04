@@ -11,6 +11,15 @@ The frontend of the system was developed using Angular, a TypeScript-based frame
 
 To ensure the system's reliability and functionality, a suite of unit tests was added to the project. The unit tests cover various aspects of the system, including the backend's controllers, services, and repositories, as well as the frontend's components and services.
 
+# Future Work
+1. Put top-level design
+2. Use websockets to exchange process messages instead of using HTTP requests to lock resourses in the vending machine
+3. Enhance code documentation
+4. Enhance UI/Ux
+5. Increase unit testing coverage
+6. Add unit tests to frotend application
+7. Add e2e tests
+
 # Backend Apllication: UML
 
 1. Models
