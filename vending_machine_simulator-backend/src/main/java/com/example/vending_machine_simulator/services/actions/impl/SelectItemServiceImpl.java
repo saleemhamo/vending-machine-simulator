@@ -6,6 +6,7 @@ import com.example.vending_machine_simulator.models.vending_machine.SnackVending
 import com.example.vending_machine_simulator.models.vending_machine.SnackVendingMachineItem;
 import com.example.vending_machine_simulator.services.actions.SelectItemService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import static com.example.vending_machine_simulator.models.enums.ProcessState.SELECT_ITEM;
 
@@ -31,7 +32,7 @@ public class SelectItemServiceImpl implements SelectItemService {
             throw new Exception("Invalid Purchase Action");
         }
 
-        if (purchaseAction.getSelectedItemNumber().isEmpty()) {
+        if (StringUtils.isEmpty(purchaseAction.getSelectedItemNumber())) {
             throw new Exception("Invalid Purchase Action");
         }
 

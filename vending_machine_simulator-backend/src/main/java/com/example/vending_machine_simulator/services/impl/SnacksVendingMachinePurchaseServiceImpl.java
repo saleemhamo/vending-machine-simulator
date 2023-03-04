@@ -23,7 +23,7 @@ public class SnacksVendingMachinePurchaseServiceImpl implements SnacksVendingMac
     private final ReturnChangeService returnChangeService;
     private final ExitService exitService;
 
-    private final ConcurrentMap<Long, Purchase> purchaseMap = new ConcurrentHashMap<>();
+    public final ConcurrentMap<Long, Purchase> purchaseMap = new ConcurrentHashMap<>();
     // TODO: add queue
 
     @Override

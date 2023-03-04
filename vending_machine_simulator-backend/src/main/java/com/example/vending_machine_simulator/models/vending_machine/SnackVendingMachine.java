@@ -1,7 +1,6 @@
 
 package com.example.vending_machine_simulator.models.vending_machine;
 
-import com.example.vending_machine_simulator.models.item.SnackItem;
 import lombok.Getter;
 import lombok.Setter;
 

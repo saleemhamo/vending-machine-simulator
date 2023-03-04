@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SnacksVendingMachineInitializerServiceImpl implements SnacksVendingMachineInitializerService {
 
     @Autowired
-    private Environment environment;
+    public Environment environment;
 
     @Override
     public void initializeSnacksVendingMachine() {
@@ -36,7 +36,7 @@ public class SnacksVendingMachineInitializerServiceImpl implements SnacksVending
 
     }
 
-    private void addItemsToVendingMachine(List<SnackItem> snackItems) {
+    public void addItemsToVendingMachine(List<SnackItem> snackItems) {
         SnackVendingMachine snackVendingMachine = SnackVendingMachine.getInstance();
         for (int row = 0; row < snackVendingMachine.getNumberOfRows(); row++) {
             for (int col = 0; col < snackVendingMachine.getNumberOfCols(); col++) {
@@ -50,7 +50,7 @@ public class SnacksVendingMachineInitializerServiceImpl implements SnacksVending
 
     }
 
-    private int getItemIndexInOriginalList(int row, int col) {
+    public int getItemIndexInOriginalList(int row, int col) {
         return row * SnackVendingMachine.getInstance().getNumberOfCols() + col;
     }
 }

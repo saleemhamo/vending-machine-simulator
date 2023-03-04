@@ -1,7 +1,6 @@
 package com.example.vending_machine_simulator.models.vending_machine;
 
 import com.example.vending_machine_simulator.models.BaseObject;
-import com.example.vending_machine_simulator.models.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.CollectionUtils;
@@ -27,5 +26,22 @@ public abstract class VendingMachine<T extends VendingMachineItem> extends BaseO
 
     public int getTotalNumberOfSlots() {
         return numberOfRows * numberOfCols;
+    }
+
+    public T getItemByNumber(String number) {
+        for (T item : items) {
+            if (item.getNumber().equals(number)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    public void setItemStockByNumber(String number, int stock) {
+        for (T item : items) {
+            if (item.getNumber().equals(number)) {
+                item.setStock(stock);
+            }
+        }
     }
 }
