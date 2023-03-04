@@ -4,10 +4,12 @@ package com.example.vending_machine_simulator.services.actions.impl;
 import com.example.vending_machine_simulator.models.Purchase;
 import com.example.vending_machine_simulator.models.PurchaseAction;
 import com.example.vending_machine_simulator.services.actions.ReturnChangeService;
+import org.springframework.stereotype.Service;
 
 import static com.example.vending_machine_simulator.models.enums.ProcessState.DISPENSE_ITEM;
 import static com.example.vending_machine_simulator.models.enums.ProcessState.RETURN_CHANGE;
 
+@Service
 public class ReturnChangeServiceImpl implements ReturnChangeService {
 
 
