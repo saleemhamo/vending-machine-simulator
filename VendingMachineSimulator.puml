@@ -1,0 +1,194 @@
+@startuml
+interface com.example.vending_machine_simulator.services.actions.DispenseItemService {
+~ Purchase dispenseItem(Purchase)
+}
+class com.example.vending_machine_simulator.models.vending_machine.SnackVendingMachine {
+- {static} SnackVendingMachine instance
++ {static} SnackVendingMachine getInstance()
++ boolean isValidItemNumber(String)
++ boolean isValidItemInStock(String)
++ SnackVendingMachineItem getSnackMachineItem(String)
+}
+class com.example.vending_machine_simulator.models.Purchase {
+- {static} Long purchaseIdCounter
+- Long purchaseId
+- LocalTime startTime
+- ProcessState processState
+- SnackVendingMachineItem snackVendingMachineItem
+- List<Money> insertedMoney
+- double balance
+- double change
++ double incrementBalance(double)
++ boolean hasSufficientBalance()
+}
+interface com.example.vending_machine_simulator.services.SnacksVendingMachinePurchaseService {
+~ Purchase startPurchase()
+~ Purchase processPurchase(PurchaseAction)
+}
+interface com.example.vending_machine_simulator.services.actions.SelectItemService {
+~ Purchase selectItem(Purchase,PurchaseAction)
+}
+class com.example.vending_machine_simulator.models.item.Item {
+- ItemType type
+- Long id
+- String displayName
+- double price
+}
+interface com.example.vending_machine_simulator.services.SnacksVendingMachineInitializerService {
+~ void initializeSnacksVendingMachine()
+}
+class com.example.vending_machine_simulator.services.actions.impl.DispenseItemServiceImpl {
++ Purchase dispenseItem(Purchase)
+- void validateDispenseItem(Purchase)
+}
+abstract class com.example.vending_machine_simulator.objects_factory.SnackItemsFactory {
+- {static} String[] SNACK_NAMES
++ {static} List<SnackItem> createSnackItems(int)
++ {static} SnackItem createSnackItem(Long,String)
+}
+interface com.example.vending_machine_simulator.services.actions.InsertMoneyService {
+~ Purchase insertMoney(Purchase,PurchaseAction)
+}
+enum com.example.vending_machine_simulator.models.enums.Money {
++  TEN_CENTS
++  TWENTY_CENTS
++  FIFTY_CENTS
++  ONE_DOLLAR
++  TWENTY_DOLLARS
++  FIFTY_DOLLARS
++  TWENTY_NIS
+- String value
+- double numericValue
++ String getValue()
++ double getNumericValue()
+}
+class com.example.vending_machine_simulator.controllers.SnacksVendingMachineController {
+- SnacksVendingMachinePurchaseService purchaseService
++ ResponseEntity<APIResponse> getSnackVendingMachine()
++ ResponseEntity<APIResponse> startPurchase()
++ ResponseEntity<APIResponse> processPurchaseAction(PurchaseAction)
+}
+class com.example.vending_machine_simulator.services.actions.impl.SelectItemServiceImpl {
++ Purchase selectItem(Purchase,PurchaseAction)
+- void validateSelectItemAction(PurchaseAction)
+}
+class com.example.vending_machine_simulator.services.impl.SnacksVendingMachinePurchaseServiceImpl {
+- SelectItemService selectItemService
+- InsertMoneyService insertMoneyService
+- DispenseItemService dispenseItemService
+- ReturnChangeService returnChangeService
+- ExitService exitService
+- ConcurrentMap<Long,Purchase> purchaseMap
++ Purchase startPurchase()
++ Purchase processPurchase(PurchaseAction)
+- void validatePurchaseAction(PurchaseAction)
+}
+interface com.example.vending_machine_simulator.services.actions.ExitService {
+~ Purchase exitPurchase(Purchase,PurchaseAction)
+}
+abstract class com.example.vending_machine_simulator.models.vending_machine.VendingMachine {
+- int numberOfRows
+- int numberOfCols
+- List<T> items
++ void addItem(T)
++ int getTotalNumberOfSlots()
+}
+class com.example.vending_machine_simulator.services.impl.SnacksVendingMachineInitializerServiceImpl {
+- Environment environment
++ void initializeSnacksVendingMachine()
+- void addItemsToVendingMachine(List<SnackItem>)
+- int getItemIndexInOriginalList(int,int)
+}
+class com.example.vending_machine_simulator.services.actions.impl.ReturnChangeServiceImpl {
++ Purchase returnChange(Purchase,PurchaseAction)
+- void validateReturnChangeAction(PurchaseAction,Purchase)
+}
+abstract class com.example.vending_machine_simulator.models.vending_machine.VendingMachineItem {
+- VendingMachine vendingMachine
+- T item
+- String number
+- int row
+- int column
+- int stock
+- String calculateItemNumber()
+}
+class com.example.vending_machine_simulator.VendingMachineSimulatorApplication {
+- SnacksVendingMachineInitializerService snacksVendingMachineInitializerService
++ {static} void main(String[])
+- void initializeSnackVendingMachine()
++ FilterRegistrationBean<CorsFilter> corsFilter()
+}
+class com.example.vending_machine_simulator.services.actions.impl.InsertMoneyServiceImpl {
++ Purchase insertMoney(Purchase,PurchaseAction)
+- void validateInsertMoneyAction(PurchaseAction)
+- double calculateInsertedMoneyAmount(PurchaseAction,Purchase)
+}
+class com.example.vending_machine_simulator.models.vending_machine.SnackVendingMachineItem {
+- VendingMachine vendingMachine
+- SnackItem item
+- String number
+- int row
+- int column
+- int stock
+- String calculateItemNumber()
+}
+enum com.example.vending_machine_simulator.models.enums.ItemType {
++  SNACKS
++  COFFEE
++  DRINKS
++  OTHER
+- String value
++ String getValue()
+}
+class com.example.vending_machine_simulator.models.PurchaseAction {
+- Long purchaseId
+- String action
+- String selectedItemNumber
+- List<String> insertedMoney
+- boolean isPayByVisa
+}
+class com.example.vending_machine_simulator.models.APIResponse {
+- Object result
++ Object getResult()
++ void setResult(Object)
++ String toString()
+}
+enum com.example.vending_machine_simulator.models.enums.ProcessState {
++  START
++  SELECT_ITEM
++  INSERT_MONEY
++  DISPENSE_ITEM
++  RETURN_CHANGE
++  EXIT
+}
+class com.example.vending_machine_simulator.models.item.SnackItem {
+}
+class com.example.vending_machine_simulator.services.actions.impl.ExitServiceImpl {
+- List<Purchase> purchaseHistory
++ Purchase exitPurchase(Purchase,PurchaseAction)
+- void validateExitPurchaseAction(PurchaseAction,Purchase)
+}
+interface com.example.vending_machine_simulator.services.actions.ReturnChangeService {
+~ Purchase returnChange(Purchase,PurchaseAction)
+}
+class com.example.vending_machine_simulator.models.BaseObject {
+}
+
+
+com.example.vending_machine_simulator.models.vending_machine.VendingMachine <|-- com.example.vending_machine_simulator.models.vending_machine.SnackVendingMachine
+com.example.vending_machine_simulator.models.BaseObject <|-- com.example.vending_machine_simulator.models.Purchase
+com.example.vending_machine_simulator.models.BaseObject <|-- com.example.vending_machine_simulator.models.item.Item
+com.example.vending_machine_simulator.services.actions.DispenseItemService <|.. com.example.vending_machine_simulator.services.actions.impl.DispenseItemServiceImpl
+com.example.vending_machine_simulator.services.actions.SelectItemService <|.. com.example.vending_machine_simulator.services.actions.impl.SelectItemServiceImpl
+com.example.vending_machine_simulator.services.SnacksVendingMachinePurchaseService <|.. com.example.vending_machine_simulator.services.impl.SnacksVendingMachinePurchaseServiceImpl
+com.example.vending_machine_simulator.models.BaseObject <|-- com.example.vending_machine_simulator.models.vending_machine.VendingMachine
+com.example.vending_machine_simulator.services.SnacksVendingMachineInitializerService <|.. com.example.vending_machine_simulator.services.impl.SnacksVendingMachineInitializerServiceImpl
+com.example.vending_machine_simulator.services.actions.ReturnChangeService <|.. com.example.vending_machine_simulator.services.actions.impl.ReturnChangeServiceImpl
+com.example.vending_machine_simulator.models.BaseObject <|-- com.example.vending_machine_simulator.models.vending_machine.VendingMachineItem
+com.example.vending_machine_simulator.services.actions.InsertMoneyService <|.. com.example.vending_machine_simulator.services.actions.impl.InsertMoneyServiceImpl
+com.example.vending_machine_simulator.models.vending_machine.VendingMachineItem <|-- com.example.vending_machine_simulator.models.vending_machine.SnackVendingMachineItem
+com.example.vending_machine_simulator.models.BaseObject <|-- com.example.vending_machine_simulator.models.PurchaseAction
+com.example.vending_machine_simulator.models.item.Item <|-- com.example.vending_machine_simulator.models.item.SnackItem
+com.example.vending_machine_simulator.services.actions.ExitService <|.. com.example.vending_machine_simulator.services.actions.impl.ExitServiceImpl
+java.io.Serializable <|.. com.example.vending_machine_simulator.models.BaseObject
+@enduml

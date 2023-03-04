@@ -2,10 +2,10 @@ package com.example.vending_machine_simulator.services.actions.impl;
 
 import com.example.vending_machine_simulator.models.Purchase;
 import com.example.vending_machine_simulator.models.PurchaseAction;
-import com.example.vending_machine_simulator.models.enums.Money;
 import com.example.vending_machine_simulator.services.actions.InsertMoneyService;
 import org.springframework.stereotype.Service;
 
+import static com.example.vending_machine_simulator.models.enums.Money.TWENTY_NIS;
 import static com.example.vending_machine_simulator.models.enums.ProcessState.INSERT_MONEY;
 
 @Service
@@ -18,7 +18,7 @@ public class InsertMoneyServiceImpl implements InsertMoneyService {
 
         double insertedMoneyAmount = calculateInsertedMoneyAmount(purchaseAction, purchase);
         purchase.incrementBalance(insertedMoneyAmount);
-        if (!purchaseAction.isPayByVisa() && purchase.hasSufficientBalance()) {
+        if (!purchaseAction.isPayByVisa() && !purchase.hasSufficientBalance()) {
             throw new Exception("No enough money");
         }
 
@@ -32,11 +32,11 @@ public class InsertMoneyServiceImpl implements InsertMoneyService {
             throw new Exception("Invalid Purchase Action");
         }
 
-        if (purchaseAction.getInsertedMoney().isEmpty()) {
+        if (purchaseAction.getInsertedMoney().isEmpty() && !purchaseAction.isPayByVisa()) {
             throw new Exception("Invalid Purchase Action");
         }
 
-        if (purchaseAction.getInsertedMoney().contains(Money.TWENTY_NIS)) {
+        if (purchaseAction.getInsertedMoney().contains(TWENTY_NIS.getValue())) {
             throw new Exception("Only USD accepted");
         }
     }
@@ -48,8 +48,29 @@ public class InsertMoneyServiceImpl implements InsertMoneyService {
             amount += purchase.getSnackVendingMachineItem().getItem().getPrice();
         }
 
-        for (Money money : purchaseAction.getInsertedMoney()) {
-            amount += money.getNumericValue();
+        for (String money : purchaseAction.getInsertedMoney()) {
+            switch (money) {
+                case "10c":
+                    amount += 0.1;
+                    break;
+                case "20c":
+                    amount += 0.2;
+                    break;
+                case "50c":
+                    amount += 0.5;
+                    break;
+                case "$1":
+                    amount += 1;
+                    break;
+                case "$20":
+                    amount += 20;
+                    break;
+                case "$50":
+                    amount += 50;
+                    break;
+                default:
+                    break;
+            }
         }
 
         return amount;

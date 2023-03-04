@@ -1,43 +1,51 @@
 <router-outlet></router-outlet>
 
-<div class="container">
-  <h1>Vending machine simulation</h1>
-  <div class="col-md-8 machine">
-    <div class="col-md-3 cell" *ngFor="let product of products">
-      <div class="col-md-6 image">
-        <img src="{{product.imageURL}}" />
-      </div>
-      <div class="col-md-6 productInfo">
-        <h3>{{ product?.item?.displayName }}</h3>
-        <h4>{{ product?.number }}</h4>
-        <h4>${{ product?.item?.price }}</h4>
-        <!-- <h5>{{ product.stock }}</h5> -->
+<div class="row p-4 m-4">
+  <h1>Snacks Vending Machine</h1>
+
+  <div class="col-8">
+    <div class="row" *ngFor="let row of products">
+      <div class="col-2 row m-3" *ngFor="let product of row">
+        <div class=" col-5 image">
+          <img src="{{product.imageURL}}" style="height: 60px;" />
+        </div>
+        <div class="productInfo col-5">
+          <h3>{{ product?.item?.displayName }}</h3>
+          <h4>{{ product?.number }}</h4>
+          <h4>${{ product?.item?.price }}</h4>
+          <h5>{{ product.stock }}</h5>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <h4>Paid: ${{totalAmountPaid}}</h4>
-    <div *ngFor="let coin of coins">
-      {{coin.amount}}
-      <img src="{{coin.imageURL}}" alt="{{coin.alt}}" (click)="acceptCoin(coin.amount)" style="height: 60px;"/>
-    </div>
 
-    <div style="margin-top: 20px;">
-      <div>Pay with Visa Card</div>
-      <img src="{{visaURL}}" alt="visa" (click)="payByVisa()" style="height: 100px;"/>
+  <div class="col-4">
+    <div>
+      <h4>Paid: ${{totalAmountPaid}}</h4>
+      <div *ngFor="let coin of coins">
+        {{coin.amount}}
+        <img src="{{coin.imageURL}}" alt="{{coin.alt}}" (click)="acceptCoin(coin.amount)" style="height: 60px;" />
+      </div>
+
+      <div style="margin-top: 20px;">
+        <div>Pay with Visa Card</div>
+        <img src="{{visaURL}}" alt="visa" (click)="payByVisa()" style="height: 100px;" />
+      </div>
+      <h3 *ngIf="change != null && change != undefined">
+        <div>{{ change == 0 ? 'No Change' : 'Change'}}</div>
+        <div *ngIf="change != null && change != undefined && change > 0">${{change}}</div>
+      </h3>
     </div>
-    <h3 *ngIf="change != null && change != undefined">
-      <div>{{ change == 0 ? 'No Change' : 'Change'}}</div>
-      <div *ngIf="change != null && change != undefined && change > 0">${{change}}</div>
-    </h3>
   </div>
 </div>
 
 
-<div style="border: 1px solid; border-color: black; width: 700px; height: 70px; margin-left: calc(50% - 350px); margin-top: 100px;">
+<div
+  style="border: 1px solid; border-color: black; width: 700px; height: 70px; margin-left: calc(50% - 350px); margin-top: 100px; font-size: large; padding-top: 20px; padding-left: 20px;">
   {{message}}
 </div>
-<div style="border: 1px solid; border-color: black; width: 500px; height: 50px; margin-left: calc(50% - 250px); margin-top: 10px;">
+<div
+  style="border: 1px solid; border-color: black; width: 500px; height: 50px; margin-left: calc(50% - 250px); margin-top: 10px; font-size: large; padding-top: 15px; padding-left: 20px;">
   {{input}}
 </div>
 <div class="keypad-container">
