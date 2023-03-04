@@ -3,14 +3,14 @@
 <div class="container">
   <h1>Vending machine simulation</h1>
   <div class="col-md-8 machine">
-    <div class="col-md-4 cell" *ngFor="let product of products">
+    <div class="col-md-3 cell" *ngFor="let product of products">
       <div class="col-md-6 image">
         <img src="{{product.imageURL}}" />
       </div>
       <div class="col-md-6 productInfo">
-        <h3>{{ product.name }}</h3>
-        <h4>{{ product.id }}</h4>
-        <h4>${{ product.price }}</h4>
+        <h3>{{ product?.item?.displayName }}</h3>
+        <h4>{{ product?.number }}</h4>
+        <h4>${{ product?.item?.price }}</h4>
         <!-- <h5>{{ product.stock }}</h5> -->
       </div>
     </div>

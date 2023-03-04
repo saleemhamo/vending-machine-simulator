@@ -1,0 +1,36 @@
+package com.example.vending_machine_simulator.models.vending_machine;
+
+import com.example.vending_machine_simulator.models.item.Item;
+import com.example.vending_machine_simulator.models.item.SnackItem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class SnackVendingMachineItem extends VendingMachineItem<SnackItem> {
+
+    @JsonIgnore
+    private VendingMachine vendingMachine;
+    private SnackItem item;
+
+    private String number;
+    private int row;
+    private int column;
+    private int stock;
+
+    public SnackVendingMachineItem(VendingMachine vendingMachine, SnackItem item, int row, int column, int stock) {
+        this.vendingMachine = vendingMachine;
+        this.item = item;
+        this.row = row;
+        this.column = column;
+        this.stock = stock;
+        this.calculateItemNumber();
+    }
+
+    private String calculateItemNumber() {
+        this.number = String.format("%d%d", row, column);
+        return this.number;
+    }
+
+}
