@@ -55,7 +55,7 @@ mvn spring-boot:run
 ```
 4. Navigate to the frontend directory and install the dependencies:
 ```
-cd frontend
+cd vending-machine-simulator-frontend
 npm install
 ```
 5. Start the Angular server:
