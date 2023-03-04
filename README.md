@@ -11,9 +11,6 @@ The frontend of the system was developed using Angular, a TypeScript-based frame
 
 To ensure the system's reliability and functionality, a suite of unit tests was added to the project. The unit tests cover various aspects of the system, including the backend's controllers, services, and repositories, as well as the frontend's components and services.
 
-
-# Top-level Design
-
 # Backend Apllication: UML
 
 1. Models
