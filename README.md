@@ -16,6 +16,9 @@ To ensure the system's reliability and functionality, a suite of unit tests was 
 
 # Backend Apllication: UML
 
+![Models UML](https://github.com/saleemhamo/vending-machine-simulator/blob/main/images/MOdelsUML.png?raw=true)
+
+
 # Installation
 To install and run this project locally, please follow the instructions below:
 
