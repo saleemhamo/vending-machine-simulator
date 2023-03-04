@@ -15,10 +15,11 @@ To ensure the system's reliability and functionality, a suite of unit tests was 
 1. Put top-level design
 2. Use websockets to exchange process messages instead of using HTTP requests to lock resourses in the vending machine
 3. Enhance code documentation
-4. Enhance UI/Ux
-5. Increase unit testing coverage
-6. Add unit tests to frotend application
-7. Add e2e tests
+4. Add REST API documentation using Swagger
+5. Enhance UI/Ux
+6. Increase unit testing coverage
+7. Add unit tests to frotend application
+8. Add e2e tests
 
 # Backend Apllication: UML
 
