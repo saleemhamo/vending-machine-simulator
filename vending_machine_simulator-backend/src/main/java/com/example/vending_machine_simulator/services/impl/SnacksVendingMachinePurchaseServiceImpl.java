@@ -11,8 +11,15 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import static com.example.vending_machine_simulator.models.enums.ProcessState.*;
-
+/**
+ * This class implements the SnacksVendingMachinePurchaseService interface and provides the functionality to process a purchase
+ * made by a user of a vending machine. It uses various actions provided by the services.actions package to carry out the
+ * steps in the purchase process, such as selecting an item, inserting money, dispensing the item, returning change and exiting
+ * the purchase.
+ * The purchase process is tracked using a ConcurrentHashMap, where the purchaseId is the key and the value is the Purchase object.
+ *
+ * @author Saleem Hamo
+ */
 @Service
 @RequiredArgsConstructor
 public class SnacksVendingMachinePurchaseServiceImpl implements SnacksVendingMachinePurchaseService {
@@ -23,9 +30,17 @@ public class SnacksVendingMachinePurchaseServiceImpl implements SnacksVendingMac
     private final ReturnChangeService returnChangeService;
     private final ExitService exitService;
 
+    // The purchase process is tracked using a ConcurrentHashMap, where the purchaseId is the key and the value is the Purchase object.
     public final ConcurrentMap<Long, Purchase> purchaseMap = new ConcurrentHashMap<>();
-    // TODO: add queue
 
+    // TODO {Saleem}: Add queue
+
+
+    /**
+     * This method creates a new Purchase object and adds it to the ConcurrentHashMap. The Purchase object is identified using a purchaseId.
+     *
+     * @return Purchase object that was created
+     */
     @Override
     public Purchase startPurchase() {
         Purchase purchase = new Purchase();
@@ -33,6 +48,13 @@ public class SnacksVendingMachinePurchaseServiceImpl implements SnacksVendingMac
         return purchase;
     }
 
+    /**
+     * This method processes the given PurchaseAction object and returns the updated Purchase object.
+     *
+     * @param purchaseAction PurchaseAction object containing details of the user's purchase action
+     * @return updated Purchase object
+     * @throws Exception if the purchaseAction object is invalid or if the action is not valid
+     */
     @Override
     public Purchase processPurchase(PurchaseAction purchaseAction) throws Exception {
         validatePurchaseAction(purchaseAction);
@@ -56,6 +78,12 @@ public class SnacksVendingMachinePurchaseServiceImpl implements SnacksVendingMac
         }
     }
 
+    /**
+     * This method validates the given PurchaseAction object to ensure that it is not null and corresponds to a valid purchase.
+     *
+     * @param purchaseAction PurchaseAction object to be validated
+     * @throws Exception if the purchaseAction object is null or if it does not correspond to a valid purchase
+     */
     private void validatePurchaseAction(PurchaseAction purchaseAction) throws Exception {
         if (Objects.isNull(purchaseAction.getPurchaseId())) {
             throw new Exception("Invalid Purchase");

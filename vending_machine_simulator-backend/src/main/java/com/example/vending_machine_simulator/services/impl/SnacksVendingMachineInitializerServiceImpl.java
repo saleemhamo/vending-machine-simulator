@@ -23,6 +23,9 @@ public class SnacksVendingMachineInitializerServiceImpl implements SnacksVending
     @Autowired
     public Environment environment;
 
+    /**
+     * Method to initialize the snack vending machine.
+     */
     @Override
     public void initializeSnacksVendingMachine() {
         log.info("Initializing Snacks Vending Machine");

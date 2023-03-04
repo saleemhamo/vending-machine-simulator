@@ -25,6 +25,10 @@ public class VendingMachineSimulatorApplication {
         SpringApplication.run(VendingMachineSimulatorApplication.class, args);
     }
 
+    /**
+     * This method is annotated with @EventListener and will be called when the Spring application context is ready.
+     * It will then call the initializeSnacksVendingMachine method of the snacksVendingMachineInitializerService to initialize the snack vending machine.
+     */
     @EventListener(ApplicationReadyEvent.class)
     private void initializeSnackVendingMachine() {
         snacksVendingMachineInitializerService.initializeSnacksVendingMachine();
